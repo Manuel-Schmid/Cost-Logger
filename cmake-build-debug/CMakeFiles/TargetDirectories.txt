@@ -1,0 +1,3 @@
+C:/Users/Many/projects/Cost-Tracker/cmake-build-debug/CMakeFiles/Cost_Tracker.dir
+C:/Users/Many/projects/Cost-Tracker/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Many/projects/Cost-Tracker/cmake-build-debug/CMakeFiles/rebuild_cache.dir
