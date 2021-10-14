@@ -46,6 +46,7 @@ int main() {
     std::cin >> cost;
     double value = tdyValue + cost;
 
+    value = std::ceil(value * 100.0) / 100.0;
     j[today] = value;
 
     // write prettified JSON to the file
