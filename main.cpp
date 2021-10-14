@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iomanip>
 #include <ctime>
+#include <cmath>
 #include <sstream>
 #include "json.hpp"
 
@@ -14,10 +15,9 @@ int main() {
     std::ostringstream oss;
     oss << std::put_time(&tm, "%d.%m.%Y");
     auto today = oss.str();
-//    std::cout << date << std::endl;
 
     // read a JSON file
-    std::ifstream ifs("pretty.json");
+    std::ifstream ifs("costs.json");
     json j = json::parse(ifs);
 
     // add an object (using an initializer list of pairs)
@@ -41,10 +41,15 @@ int main() {
         tdyValue = 0.00; // if there was no entry today set to 0.00
     }
 
-    j[today] = tdyValue + 3.00;
+    double cost;
+    std::cout << "Enter the cost: \n";
+    std::cin >> cost;
+    double value = tdyValue + cost;
 
-    // write prettified JSON to another file
-    std::ofstream o("pretty.json");
+    j[today] = value;
+
+    // write prettified JSON to the file
+    std::ofstream o("costs.json");
     o << std::setw(4) << j << std::endl;
 
     return 0;
