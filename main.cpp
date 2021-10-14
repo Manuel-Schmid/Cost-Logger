@@ -28,10 +28,10 @@ int main() {
     // read data
     double tdyValue;
     try {
-        if (j[today] == nullptr) {
+        if (j["entries"][today] == nullptr) {
             throw 404;
         } else {
-            for (auto& el : j[today].items())
+            for (auto& el : j["entries"][today].items())
             {
                 tdyValue = el.value(); // read combined total of today's entries
             }
@@ -44,14 +44,14 @@ int main() {
     double cost;
     std::cout << "Enter the cost: \n";
     std::cin >> cost;
-    double value = tdyValue + cost;
+    double todayCost = tdyValue + cost;
 
-    value = std::ceil(value * 100.0) / 100.0;
-    j[today] = value;
+    todayCost = std::ceil(todayCost * 20.0) / 20.0; // round to 0.05
+    j["entries"][today] = todayCost;
 
     // calculate total
     double total = 0.00;
-    for (auto it : j)
+    for (auto it : j["entries"])
     {
         for (auto& el : it.items())
         {
@@ -60,7 +60,8 @@ int main() {
         }
     }
     total = std::round(total * 100.0) / 100.0;
-    std::cout << total << '\n';
+//    std::cout << total << '\n';
+    j["total"] = total;
 
     // write prettified JSON to file
     std::ofstream o("costs.json");
