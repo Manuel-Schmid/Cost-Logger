@@ -49,7 +49,20 @@ int main() {
     value = std::ceil(value * 100.0) / 100.0;
     j[today] = value;
 
-    // write prettified JSON to the file
+    // calculate total
+    double total = 0.00;
+    for (auto it : j)
+    {
+        for (auto& el : it.items())
+        {
+            double elVal = el.value();
+            total = total + elVal;
+        }
+    }
+    total = std::round(total * 100.0) / 100.0;
+    std::cout << total << '\n';
+
+    // write prettified JSON to file
     std::ofstream o("costs.json");
     o << std::setw(4) << j << std::endl;
 
