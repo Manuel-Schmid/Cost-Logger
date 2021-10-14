@@ -4,11 +4,26 @@
 #include <ctime>
 #include <cmath>
 #include <sstream>
+#include <sys/stat.h>
+#include <string>
 #include "json.hpp"
 
 using json = nlohmann::json;
 
+bool does_file_exist(const char *fileName)
+{
+    std::ifstream infile(fileName);
+    return infile.good();
+}
+
 int main() {
+
+    // check if json-file exists
+    if (!does_file_exist("cost-logs.json")) {
+        json j;
+        std::ofstream o("cost-logs.json");
+        o << std::setw(4) << j << std::endl;
+    }
 
     // get today's date as a string
     auto t = std::time(nullptr);
@@ -18,7 +33,7 @@ int main() {
     auto today = oss.str();
 
     // read a JSON file
-    std::ifstream ifs("costs.json");
+    std::ifstream ifs("cost-logs.json");
     json j = json::parse(ifs);
 
     // read today's entry-data
@@ -61,7 +76,7 @@ int main() {
     j["total"] = total;
 
     // write prettified JSON to file
-    std::ofstream o("costs.json");
+    std::ofstream o("cost-logs.json");
     o << std::setw(4) << j << std::endl;
 
     return 0;
